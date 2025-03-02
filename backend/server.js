@@ -31,7 +31,7 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
-app.use(api)
+app.use('/api', api);
 
 app.listen(PORT, () => {
     console.log(`Your app is running in http://localhost:${PORT}`)
