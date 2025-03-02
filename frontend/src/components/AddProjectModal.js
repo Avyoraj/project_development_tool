@@ -10,9 +10,11 @@ const AddProjectModal = ({ isModalOpen, closeModal, edit = false, id = null }) =
     const [title, setTitle] = useState('')
     const [desc, setDesc] = useState('');
 
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
     useEffect(() => {
         if (edit && isModalOpen) {
-            axios.get(`http://localhost:9000/project/${id}`)
+            axios.get(`${backendUrl}/project/${id}`)
                 .then((res) => {
                     setTitle(res.data[0].title)
                     setDesc(res.data[0].description)
@@ -21,13 +23,13 @@ const AddProjectModal = ({ isModalOpen, closeModal, edit = false, id = null }) =
                     toast.error('Something went wrong')
                 })
         }
-    }, [isModalOpen]);
+    }, [isModalOpen, edit, id, backendUrl]);
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
         if (!edit) {
-            axios.post('http://localhost:9000/project/', { title, description: desc })
+            axios.post(`${backendUrl}/project/`, { title, description: desc })
                 .then((res) => {
                     closeModal()
                     const customEvent = new CustomEvent('projectUpdate', { detail: { ...res.data } });
@@ -44,7 +46,7 @@ const AddProjectModal = ({ isModalOpen, closeModal, edit = false, id = null }) =
                     }
                 })
         } else {
-            axios.put(`http://localhost:9000/project/${id}`, { title, description: desc })
+            axios.put(`${backendUrl}/project/${id}`, { title, description: desc })
                 .then((res) => {
                     closeModal()
                     const customEvent = new CustomEvent('projectUpdate', { detail: { ...res.data } });

@@ -14,32 +14,6 @@ import TaskModal from "./TaskModal";
 
 function Task() {
 
-    // const itemsFromBackend = [
-    //     { _id: uuid(), content: "First task" },
-    //     { _id: uuid(), content: "Second task" },
-    //     { _id: uuid(), content: "Third task" },
-    //     { _id: uuid(), content: "Forth task" }
-    // ];
-
-    // const columnsFromBackend = {
-    //     [uuid()]: {
-    //         name: "Requested",
-    //         items: []
-    //     },
-    //     [uuid()]: {
-    //         name: "To do",
-    //         items: []
-    //     },
-    //     [uuid()]: {
-    //         name: "In Progress",
-    //         items: []
-    //     },
-    //     [uuid()]: {
-    //         name: "Done",
-    //         items: []
-    //     }
-    // };
-
     const onDragEnd = (result, columns, setColumns) => {
         if (!result.destination) return;
         const { source, destination } = result;
@@ -101,7 +75,6 @@ function Task() {
 
     const [isAddTaskModalOpen, setAddTaskModal] = useState(false);
 
-    // const [columns, setColumns] = useState(columnsFromBackend);
     const [columns, setColumns] = useState({});
     const [isRenderChange, setRenderChange] = useState(false);
     const [isTaskOpen, setTaskOpen] = useState(false);
@@ -109,10 +82,11 @@ function Task() {
     const [title, setTitle] = useState('');
     const { projectId } = useParams();
     const navigate = useNavigate();
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         if (!isAddTaskModalOpen || isRenderChange) {
-            axios.get(`http://localhost:9000/project/${projectId}`)
+            axios.get(`${backendUrl}/project/${projectId}`)
                 .then((res) => {
                     setTitle(res.data[0].title)
                     setColumns({
@@ -146,10 +120,10 @@ function Task() {
                     toast.error('Something went wrong')
                 })
         }
-    }, [projectId, isAddTaskModalOpen, isRenderChange]);
+    }, [projectId, isAddTaskModalOpen, isRenderChange, backendUrl]);
 
     const updateTodo = (data) => {
-        axios.put(`http://localhost:9000/project/${projectId}/todo`, data)
+        axios.put(`${backendUrl}/project/${projectId}/todo`, data)
             .then((res) => {
             }).catch((error) => {
                 toast.error('Something went wrong')
@@ -158,7 +132,7 @@ function Task() {
 
     const handleDelete = (e, taskId) => {
         e.stopPropagation();
-        axios.delete(`http://localhost:9000/project/${projectId}/task/${taskId}`)
+        axios.delete(`${backendUrl}/project/${projectId}/task/${taskId}`)
             .then((res) => {
                 toast.success('Task is deleted')
                 setRenderChange(true)

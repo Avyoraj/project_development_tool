@@ -4,14 +4,9 @@ import { Dialog, Transition } from '@headlessui/react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
-
-//first later capital in javascript ?
-
-
-
-
 const TaskModal = ({ isOpen, setIsOpen, id }) => {
     const [taskData, setTaskData] = useState('')
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     const capitalizeFirstLetter = (string) => {
         return string ? string.charAt(0).toUpperCase() + string.slice(1) : ''
@@ -19,7 +14,7 @@ const TaskModal = ({ isOpen, setIsOpen, id }) => {
 
     useEffect(() => {
         if (isOpen) {
-            axios.get(`http://localhost:9000/project/${id.projectId}/task/${id.id}`)
+            axios.get(`${backendUrl}/project/${id.projectId}/task/${id.id}`)
                 .then((data) => {
                     setTaskData({ ...data.data[0].task[0] });
                     // console.log(taskData);
@@ -28,7 +23,7 @@ const TaskModal = ({ isOpen, setIsOpen, id }) => {
                     toast.error('something went wrong')
                 })
         }
-    }, [isOpen]);
+    }, [isOpen, id, backendUrl]);
 
     return (
         <Transition appear show={isOpen} as={Fragment}>

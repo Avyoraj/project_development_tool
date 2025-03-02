@@ -3,11 +3,14 @@ import AddProjectModal from './AddProjectModal'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 // import toast from 'react-hot-toast'
+
 const Sidebar = () => {
 
   const [isModalOpen, setModalState] = useState(false)
   const [projects, setProjects] = useState([])
   const [paramsWindow, setParamsWindow] = useState(window.location.pathname.slice(1))
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   useEffect(() => {
   })
 
@@ -24,7 +27,7 @@ const Sidebar = () => {
   }, [])
 
   const projectData = () => {
-    axios.get('http://localhost:9000/projects/')
+    axios.get(`${backendUrl}/projects/`)
       .then((res) => {
         setProjects(res.data)
       })
@@ -38,9 +41,7 @@ const Sidebar = () => {
     return () => {
       document.removeEventListener('projectUpdate', {}, false)
     }
-  }, []);
-
-
+  }, [backendUrl]);
 
   return (
     <div className='py-5'>

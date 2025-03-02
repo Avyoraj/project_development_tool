@@ -10,9 +10,11 @@ const AddTaskModal = ({ isAddTaskModalOpen, setAddTaskModal, projectId = null, t
     const [title, setTitle] = useState('')
     const [desc, setDesc] = useState('');
 
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
     useEffect(() => {
         if (edit && isAddTaskModalOpen) {
-            axios.get(`http://localhost:9000/project/${projectId}/task/${taskId}`)
+            axios.get(`${backendUrl}/project/${projectId}/task/${taskId}`)
                 .then((res) => {
                     setTitle(res.data[0].task[0].title)
                     setDesc(res.data[0].task[0].description)
@@ -22,12 +24,12 @@ const AddTaskModal = ({ isAddTaskModalOpen, setAddTaskModal, projectId = null, t
                 })
             console.log('edit function call')
         }
-    }, [isAddTaskModalOpen]);
+    }, [isAddTaskModalOpen, edit, projectId, taskId, backendUrl]);
 
     const handleSubmit = (e) => {
         e.preventDefault()
         if (!edit) {
-            axios.post(`http://localhost:9000/project/${projectId}/task`, { title, description: desc })
+            axios.post(`${backendUrl}/project/${projectId}/task`, { title, description: desc })
                 .then((res) => {
                     setAddTaskModal(false)
                     toast.success('Task created successfully')
@@ -42,7 +44,7 @@ const AddTaskModal = ({ isAddTaskModalOpen, setAddTaskModal, projectId = null, t
                     }
                 })
         } else {
-            axios.put(`http://localhost:9000/project/${projectId}/task/${taskId}`, { title, description: desc })
+            axios.put(`${backendUrl}/project/${projectId}/task/${taskId}`, { title, description: desc })
                 .then((res) => {
                     setAddTaskModal(false)
                     toast.success('Task is updated')
