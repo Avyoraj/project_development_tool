@@ -105,16 +105,15 @@ This project is a **full-stack** project management tool that allows users to **
 ---
 
 ## 🎯 Features
-✅ **Create, edit, and delete projects** 🏗️
-✅ **Add and manage tasks within projects** ✅
-✅ **Drag-and-drop task organization** 🖱️
-✅ **Responsive UI with Tailwind CSS** 📱
-✅ **Toast notifications for feedback** 🔔
-✅ **Smooth API interactions using Axios** 🔄
-✅ **Secure backend with Joi validation** 🛡️
-✅ **Testing setup with Jest & React Testing Library** 🧪
+- ✅ **Create, edit, and delete projects** 🏗️
+- ✅ **Add and manage tasks within projects** ✅
+- ✅ **Drag-and-drop task organization** 🖱️
+- ✅ **Responsive UI with Tailwind CSS** 📱
+- ✅ **Toast notifications for feedback** 🔔
+- ✅ **Smooth API interactions using Axios** 🔄
+- ✅ **Secure backend with Joi validation** 🛡️
+- ✅ **Testing setup with Jest & React Testing Library** 🧪
 
 ---
 
 🚀 **Let's build something amazing!** 🚀
-
