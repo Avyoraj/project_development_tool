@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from 'path'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -12,7 +15,7 @@ export default defineConfig({
   },
   define: {
     // Fallback environment variable definition
-    'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || '/api'),
+    'import.meta.env.VITE_API_URL': JSON.stringify('/api'),
   },
   build: {
     outDir: 'dist',
