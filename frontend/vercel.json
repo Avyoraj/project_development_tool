@@ -8,11 +8,6 @@
   "env": {
     "VITE_API_URL": "/api"
   },
-  "functions": {
-    "app/api/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/api/(.*)",
